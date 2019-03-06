@@ -5,6 +5,8 @@ import 'react-image-crop/dist/ReactCrop.css';
 
 import crops from '../crops.json';
 import resizeImage from '../util/resizeImage';
+import Button, { FileSelect } from '../components/Button';
+import Input from '../components/Input';
 
 class Index extends Component {
   constructor(props) {
@@ -132,13 +134,13 @@ class Index extends Component {
   }
 
   render() {
-    const { crop, croppedImageUrl, src } = this.state;
+    const { crop, croppedImageUrl, src, fileName, width, height, organizationName } = this.state;
 
     return (
       <div>
         <h1>Image Crop Tool</h1>
         <div className='buttons'>
-          <input type='file' onChange={this.onSelectFile} className='button' />
+          <FileSelect onChange={this.onSelectFile} />
 
           <select onChange={this.selectCrop} className='button'>
             {crops.map((crop, index) => (
@@ -146,15 +148,15 @@ class Index extends Component {
             ))}
           </select>
           
-          <input type='text' value={this.state.fileName} onChange={this.onFileNameChange} placeholder='Filename' className='input' />
+          <Input value={fileName} onChange={this.onFileNameChange}>Filename</Input>
 
-          <input type='number' placeholder='Width' className='input' value={this.state.width} onChange={(e) => this.setCrop(e.target.value, this.state.height)} />
-          <input type='number' placeholder='Height' className='input' value={this.state.height} onChange={(e) => this.setCrop(this.state.width, e.target.value)} />
+          <Input type='number' value={width} onChange={(e) => this.setCrop(e.target.value, height)}>Width</Input>
+          <Input type='number' value={height} onChange={(e) => this.setCrop(width, e.target.value)}>Height</Input>
 
-          <input type='text' value={this.state.organizationName} onChange={this.onOrganizationNameChange} placeholder='Organization name' className='input' />
+          <Input value={organizationName} onChange={this.onOrganizationNameChange}>Organization name</Input>
 
           {croppedImageUrl && (
-            <button onClick={this.downloadImage} className='button'>Tallenna kuva</button>
+            <Button onClick={this.downloadImage}>Download image</Button>
           )}
         </div>
 
