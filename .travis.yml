@@ -5,4 +5,4 @@ script:
 - npm run build
 # Clean gh-pages cache
 - rm -rf ./node_modules/gh-pages/.cache
-- ./node_modules/.bin/gh-pages -d dist -r https://${GH_TOKEN}@github.com/peltomaa/ImageCrop.git
+- ./node_modules/.bin/gh-pages -d dist -r https://${GH_TOKEN}@github.com/peltomaa/Image-Crop.git
