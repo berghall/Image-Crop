@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Box",
+        "width": 800,
+        "height": 900
+    },
+    {
+        "name": "Full HD",
+        "width": 1920,
+        "height": 1080
+    }
+]
