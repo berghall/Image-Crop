@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactCrop from 'react-image-crop';
 import download from 'downloadjs';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -8,7 +8,7 @@ import resizeImage from '../util/resizeImage';
 import Button, { FileSelect } from '../components/Button';
 import Input from '../components/Input';
 
-class Index extends Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
 
