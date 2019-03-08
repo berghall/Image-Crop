@@ -2,8 +2,10 @@ import React from 'react';
 import ReactCrop from 'react-image-crop';
 import download from 'downloadjs';
 import 'react-image-crop/dist/ReactCrop.css';
+import { observer } from 'mobx-react'
+import { toJS } from 'mobx';
 
-import crops from '../crops.json';
+import store from '../store'
 import resizeImage from '../util/resizeImage';
 import Button, { FileSelect } from '../components/Button';
 import Input from '../components/Input';
@@ -11,39 +13,21 @@ import Input from '../components/Input';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-
-    // Default values
-    const width = crops[0].width;
-    const height = crops[0].height;
-
-    this.state = {
-      src: null,
-      fileName: '',
-      organizationName: '',
-      width,
-      height,
-      crop: {
-        aspect: width / height
-      }
-    };
-
+    
     this.onSelectFile = this.onSelectFile.bind(this);
     this.onImageLoaded = this.onImageLoaded.bind(this);
     this.onCropComplete = this.onCropComplete.bind(this);
-    this.onCropChange = this.onCropChange.bind(this);
     this.makeClientCrop = this.makeClientCrop.bind(this);
     this.getCroppedImg = this.getCroppedImg.bind(this);
     this.selectCrop = this.selectCrop.bind(this);
     this.downloadImage = this.downloadImage.bind(this);
-    this.onFileNameChange = this.onFileNameChange.bind(this);
-    this.onOrganizationNameChange = this.onOrganizationNameChange.bind(this);
   }
 
   onSelectFile(e) {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener('load', () =>
-        this.setState({ src: reader.result })
+        store.setSource(reader.result)
       );
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -55,10 +39,6 @@ class Index extends React.Component {
 
   onCropComplete(crop, pixelCrop) {
     this.makeClientCrop(crop, pixelCrop);
-  }
-
-  onCropChange(crop) {
-    this.setState({ crop });
   }
 
   async makeClientCrop(crop, pixelCrop) {
@@ -101,7 +81,7 @@ class Index extends React.Component {
   }
 
   setCrop(width, height) {
-    this.setState({
+    store.setCrop({
       crop: {
         aspect: width / height
       }
@@ -110,31 +90,19 @@ class Index extends React.Component {
   }
 
   selectCrop(e) {
-    this.setCrop(crops[e.target.value].width, crops[e.target.value].height);
+    store.setValuesByIndex(e.target.value);
   }
 
   downloadImage() {
-    const resizedImage = resizeImage(this.fileUrl, this.state.width, this.state.height);
+    const resizedImage = resizeImage(this.fileUrl, store.width, store.height);
     
     resizedImage.then(base64 => {
-      download(base64, `${this.state.organizationName}_${this.state.fileName}_${this.state.width}x${this.state.height}.jpg`);
-    });
-  }
-
-  onFileNameChange(e) {
-    this.setState({
-      fileName: e.target.value
-    });
-  }
-
-  onOrganizationNameChange(e) {
-    this.setState({
-      organizationName: e.target.value.toUpperCase()
+      download(base64, `${store.organizationName}_${store.fileName}_${store.width}x${store.height}.jpg`);
     });
   }
 
   render() {
-    const { crop, croppedImageUrl, src, fileName, width, height, organizationName } = this.state;
+    const { croppedImageUrl } = this.state;
 
     return (
       <div>
@@ -143,30 +111,30 @@ class Index extends React.Component {
           <FileSelect onChange={this.onSelectFile} />
 
           <select onChange={this.selectCrop} className='button'>
-            {crops.map((crop, index) => (
+            {store.settings.map((crop, index) => (
               <option value={index} key={`${crop.name}${crop.width}${crop.height}`}>{`${crop.name} - ${crop.width} x ${crop.height}`}</option>
             ))}
           </select>
           
-          <Input value={fileName} onChange={this.onFileNameChange}>Filename</Input>
+          <Input value={store.fileName} onChange={(e) => store.setFileName(e.target.value)}>Filename</Input>
 
-          <Input type='number' value={width} onChange={(e) => this.setCrop(e.target.value, height)}>Width</Input>
-          <Input type='number' value={height} onChange={(e) => this.setCrop(width, e.target.value)}>Height</Input>
+          <Input type='number' value={store.width} onChange={(e) => store.setWidth(e.target.value)}>Width</Input>
+          <Input type='number' value={store.height} onChange={(e) => store.setHeight(e.target.value)}>Height</Input>
 
-          <Input value={organizationName} onChange={this.onOrganizationNameChange}>Organization name</Input>
+          <Input value={store.organizationName} onChange={(e) => store.setOrgName(e.target.value)}>Organization name</Input>
 
           {croppedImageUrl && (
             <Button onClick={this.downloadImage}>Download image</Button>
           )}
         </div>
 
-        {src && (
+        {store.src && (
           <ReactCrop
-            src={src}
-            crop={crop}
+            src={store.src}
+            crop={toJS(store.crop)}
             onImageLoaded={this.onImageLoaded}
             onComplete={this.onCropComplete}
-            onChange={this.onCropChange}
+            onChange={(crop) => store.setCrop(crop)}
           />
         )}
         {croppedImageUrl && (
@@ -181,4 +149,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default observer(Index);
