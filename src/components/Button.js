@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Button = ({ onClick, children }) => (
-    <button onClick={onClick} className='button'>{children}</button>
+const Button = ({ onClick, children, disabled }) => (
+    <button onClick={onClick} className='button' disabled={disabled}>{children}</button>
 );
 
 const FileSelect = ({ onChange }) => (

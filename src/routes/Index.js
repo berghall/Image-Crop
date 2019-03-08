@@ -128,7 +128,7 @@ class Index extends React.Component {
           <Input value={store.organizationName} onChange={(e) => store.setOrgName(e.target.value)}>Organization name</Input>
 
           {croppedImageUrl && (
-            <Button onClick={this.downloadImage}>Download image</Button>
+            <Button disabled={ (store.organizationName && store.fileName) == "" } onClick={this.downloadImage}>Download image</Button>
           )}
         </div>
 
