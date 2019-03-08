@@ -117,7 +117,7 @@ class Index extends React.Component {
     const resizedImage = resizeImage(this.fileUrl, this.state.width, this.state.height);
     
     resizedImage.then(base64 => {
-      download(base64, `${this.state.organizationName}_${this.state.fileName}_${this.state.width}x${this.state.height}`);
+      download(base64, `${this.state.organizationName}_${this.state.fileName}_${this.state.width}x${this.state.height}.jpg`);
     });
   }
 
