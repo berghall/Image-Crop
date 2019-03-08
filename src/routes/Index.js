@@ -14,6 +14,10 @@ class Index extends React.Component {
   constructor(props) {
     super(props);
     
+    this.state = {
+      croppedImageUrl: null
+    }
+
     this.onSelectFile = this.onSelectFile.bind(this);
     this.onImageLoaded = this.onImageLoaded.bind(this);
     this.onCropComplete = this.onCropComplete.bind(this);
