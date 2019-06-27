@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const CnameWebpackPlugin = require('cname-webpack-plugin');
 
 module.exports = {
     devServer: {
@@ -31,13 +30,10 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Image Crop Tool',
+            title: 'Rajaustyökalu M19',
             template: './index.html',
             inlineSource: '.(js|css)$',
         }),
-        new HtmlWebpackInlineSourcePlugin(),
-        new CnameWebpackPlugin({
-            domain: 'crop.toukopeltomaa.com',
-        }),
+        new HtmlWebpackInlineSourcePlugin()
     ]
 }

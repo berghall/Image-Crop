@@ -1,12 +1,62 @@
 [
     {
-        "name": "Box",
-        "width": 800,
-        "height": 900
+        "name": "PV Sisältökuva",
+        "width": 564,
+        "height": 328
     },
     {
-        "name": "Full HD",
-        "width": 1920,
-        "height": 1080
+        "name": "PV Karusellikuva",
+        "width": 1280,
+        "height": 450
+    },
+    {
+        "name": "PV Blogikuva",
+        "width": 546,
+        "height": 205
+    },
+    {
+        "name": "PV Bannerikuva",
+        "width": 258,
+        "height": 150
+    },
+    {
+        "name": "PV Bannerikuva(pieni)",
+        "width": 65,
+        "height": 65
+    },
+    {
+        "name": "PV Kasvokuva(portrettimalli)",
+        "width": 100,
+        "height": 133
+    },
+    {
+        "name": "PV Iso nostokuva(yleensä henkilökuvat)",
+        "width": 185,
+        "height": 185
+    },
+    {
+        "name": "PV Sisältökuva",
+        "width": 245,
+        "height": 300
+    },
+    {
+        "name": "Torni karusellikuva",
+        "width": 760,
+        "height": 405
+    },
+    {
+        "name": "Torni head",
+        "width": 702,
+        "height": 234
+    },
+    {
+        "name": "Torni leipätekstissä",
+        "width": 258,
+        "height": 150
+    },
+    {
+        "name": "Torni Ruotuväki nosto",
+        "width": 735,
+        "height": 451
     }
 ]

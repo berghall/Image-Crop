@@ -7,7 +7,7 @@ import { toJS } from 'mobx';
 
 import store from '../store'
 import resizeImage from '../util/resizeImage';
-import Button, { FileSelect } from '../components/Button';
+import Button, { FileSelect, DropSelect, WidthHeightSelect } from '../components/Button';
 import Input from '../components/Input';
 
 class Index extends React.Component {
@@ -110,20 +110,15 @@ class Index extends React.Component {
 
     return (
       <div>
-        <h1>Image Crop Tool</h1>
         <div className='buttons'>
+          <h1>Rajaustyökalu M19</h1>
           <FileSelect onChange={this.onSelectFile} />
 
-          <select onChange={this.selectCrop} className='button'>
-            {store.settings.map((crop, index) => (
-              <option value={index} key={`${crop.name}${crop.width}${crop.height}`}>{`${crop.name} - ${crop.width} x ${crop.height}`}</option>
-            ))}
-          </select>
+          <DropSelect onChange={this.selectCrop} className='button' value={store.currentIdx}/>
           
-          <Input value={store.fileName} onChange={(e) => store.setFileName(e.target.value)}>Filename</Input>
+          <WidthHeightSelect/>
 
-          <Input type='number' value={store.width} onChange={(e) => store.setWidth(e.target.value)}>Width</Input>
-          <Input type='number' value={store.height} onChange={(e) => store.setHeight(e.target.value)}>Height</Input>
+          <Input value={store.fileName} onChange={(e) => store.setFileName(e.target.value)}>Filename</Input>
 
           <Input value={store.organizationName} onChange={(e) => store.setOrgName(e.target.value)}>Organization name</Input>
 
