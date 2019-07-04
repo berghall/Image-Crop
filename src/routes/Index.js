@@ -32,7 +32,8 @@ class Index extends React.Component {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       reader.addEventListener('load', () =>
-        store.setSource(reader.result)
+        store.setSource(reader.result),
+        store.setInputFileName(e.target.files[0].name)
       );
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -113,6 +114,7 @@ class Index extends React.Component {
       <div>
         <div className='buttons'>
           <h1>Rajaustyökalu M19</h1>
+          
           <FileSelect onChange={this.onSelectFile} />
 
           <DropSelect onChange={this.selectCrop} className='button' value={store.currentIdx}/>

@@ -18,6 +18,7 @@ const CropSettings = types.model("CropSettings", {
 
 const Store = types.model("Store", {
     settings: types.array(ImageSettings),
+    inputFileName: types.string,
     src: types.string,
     fileName: types.string,
     organizationName: types.string,
@@ -43,6 +44,9 @@ const Store = types.model("Store", {
     setSource(value) {
         self.src = value
     },
+    setInputFileName(text) {
+        self.inputFileName = text
+    },
     setFileName(text) {
         self.fileName = text
     },
@@ -66,6 +70,7 @@ const Store = types.model("Store", {
 const store = Store.create({
     settings: crops,
     src: "",
+    inputFileName: "",
     fileName: "",
     currentIdx: !localStorage.getItem('currentIdx') ? 0 : parseInt(localStorage.getItem('currentIdx')),
     organizationName: !localStorage.getItem('organizationName') ? "PEVIESTOS" : localStorage.getItem('organizationName'),

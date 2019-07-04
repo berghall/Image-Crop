@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import Input from './Input'
 import store from '../store'
 
 const RenderButton = styled.button`
@@ -32,7 +31,7 @@ const Button = ({ onClick, children, disabled }) => (
 
 const FileSelect = ({ onChange }) => (
     <>
-        <RenderLabel htmlFor="files" className="button">Valitse tiedosto</RenderLabel>
+        <RenderLabel htmlFor="files" className="button">Valitse tiedosto{ store.inputFileName && `: ${store.inputFileName}` }</RenderLabel>
         <input type='file' onChange={onChange} className='button' id="files" style={{ visibility: 'hidden', display: 'none' }}/>
     </>
 );
