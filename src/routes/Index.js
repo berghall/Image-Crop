@@ -7,7 +7,8 @@ import { toJS } from 'mobx';
 
 import store from '../store'
 import resizeImage from '../util/resizeImage';
-import Button, { FileSelect, DropSelect, WidthHeightSelect } from '../components/Button';
+import Button, { FileSelect, DropSelect } from '../components/Button';
+import { SizeContainer } from '../components/Container'
 import Input from '../components/Input';
 
 class Index extends React.Component {
@@ -116,7 +117,10 @@ class Index extends React.Component {
 
           <DropSelect onChange={this.selectCrop} className='button' value={store.currentIdx}/>
           
-          <WidthHeightSelect/>
+          <SizeContainer>
+            <Input type='number' value={store.width} onChange={(e) => store.setWidth(e.target.value)}>Width</Input>
+            <Input type='number' value={store.height} onChange={(e) => store.setHeight(e.target.value)}>Height</Input>
+          </SizeContainer>
 
           <Input value={store.fileName} onChange={(e) => store.setFileName(e.target.value)}>Filename</Input>
 

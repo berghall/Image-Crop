@@ -52,11 +52,11 @@ const Store = types.model("Store", {
     },
     setHeight(value) {
         self.height = parseInt(value)
-        localStorage.setItem('height', parseInt(height))
+        localStorage.setItem('height', parseInt(value))
     },
     setWidth(value) {
         self.width = parseInt(value)
-        localStorage.setItem('width', parseInt(width))
+        localStorage.setItem('width', parseInt(value))
     },
     setCrop(crop) {
         self.crop = crop
